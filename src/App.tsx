@@ -31,8 +31,7 @@ function App() {
             <Route path='/about' element={<About />} />
           </Routes>
         </main>
-        <h1>Hello World</h1>
-       <h2>Weather App</h2>
+       
       </div>
       </BrowserRouter>
     

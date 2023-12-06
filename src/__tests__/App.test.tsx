@@ -6,6 +6,6 @@ import App from '../App';
 
 it('Should have hello world', () => {
   render(<App />);
-  const message = screen.queryByText(/Hello World/i);
+  const message = screen.queryByText(/Weather app/i);
   expect(message).toBeVisible();
 });
