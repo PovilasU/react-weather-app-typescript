@@ -26,7 +26,7 @@ function App() {
             <Route path='/' element={(<>
               <LocationSearch />
               <LocationResults />
-              <WeatherDisplay temperature={0} description={''} />
+              {/* <WeatherDisplay  /> */}
             </>)}></Route>
             <Route path='/about' element={<About />} />
           </Routes>
@@ -41,34 +41,3 @@ function App() {
 
 export default App
 
-
-// <BrowserRouter>
-// <div>
-//   <header>
-//     <h1>Weather App</h1>
-//     <nav>
-//       <Link to='/'>App</Link>
-//       <Link to='/about'>About</Link>
-//     </nav>
-//   </header>
-//   <main>
-//     <Routes>
-//       <Route path='/' element={(<>
-//         <LocationSearch />
-//         <LocationResults />
-//         <WeatherDisplay />
-//       </>)}></Route>
-//       <Route path='/about' element={<About />} />
-//     </Routes>
-
-// <h1> Weather app</h1>
-//   </main>
-
-// </>
-// </div>
-// {/* <About />
-// */}
-
-// {/* <h1> Weather app</h1> */}
-
-// </BrowserRouter>
