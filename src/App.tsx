@@ -1,43 +1,83 @@
-import {  } from 'react'
+import { useState, useEffect, useCallback, lazy, Suspense } from "react";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import Footer from "./components/Footer";
 
-import './App.css'
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
-import LocationSearch from './components/LocationSearch'
-import LocationResults from './components/LocationResults'
-import About from './components/About'
-import WeatherDisplay from './components/WeatherDisplay'
+const LocationSearch = lazy(() => import("./components/LocationSearch"));
+const LocationResults = lazy(() => import("./components/LocationResults"));
+const WeatherDisplay = lazy(() => import("./components/WeatherDisplay"));
+const About = lazy(() => import("./components/About"));
 
-function App() {
 
+function App(): JSX.Element {
+  const API_ROOT = `https://api.open-meteo.com/v1/forecast?format=json&daily=temperature_2m_max,temperature_2m_min&hourly=temperature_2m&current_weather=true&`;
+  const [locations, updateLocations] = useState<any[]>([]);
+  const [selection, updateSelection] = useState<any | null>(null);
+  const [info, updateInfo] = useState<any | null>(null);
+
+  // console.log(selection)
+
+  const fetchData = useCallback(async () => {
+    if (selection) {
+      const response = await fetch(
+        `${API_ROOT}latitude=${selection.latitude}&longitude=${selection.longitude}&timezone=${selection.timezone}`
+      );
+      const data = await response.json();
+      updateLocations([]);
+      updateInfo(data);
+    }
+  }, [selection, API_ROOT]);
+
+  // Call fetchData when selection changes
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
 
   return (
-    <>
-     <BrowserRouter>
-      <div className='App'>
-      <header>
-          <h1>Weather App</h1>
+    <BrowserRouter>
+      <div id="wrapper">
+        <header className="module">
+          <h1 id="logo">Weather App</h1>
           <nav>
-            <Link to='/'>App</Link>
-            <Link to='/about'>About</Link>
+            <Link to="/">App</Link>
+            <Link to="/about">About</Link>
           </nav>
         </header>
+
         <main>
           <Routes>
-            <Route path='/' element={(<>
-              <LocationSearch />
-              <LocationResults />
-              {/* <WeatherDisplay  /> */}
-            </>)}></Route>
-            <Route path='/about' element={<About />} />
+            <Route
+              path="/"
+              element={
+                <Suspense fallback={<div>Loading...</div>}>
+                  <LocationSearch
+                    // locations={locations}
+                    updateLocations={updateLocations}
+                  />
+                  {locations.length > 0 && (
+                    <LocationResults
+                      locations={locations}
+                      // selection={selection}
+                      updateSelection={updateSelection}
+                    />
+                  )}
+                  {info && <WeatherDisplay info={info} selection={selection} />}
+                </Suspense>
+              }
+            />
+            <Route
+              path="/about"
+              element={
+                <Suspense fallback={<div>Loading...</div>}>
+                  <About />
+                </Suspense>
+              }
+            />
           </Routes>
         </main>
-       
+        <Footer />
       </div>
-      </BrowserRouter>
-    
-    </>
-  )
+    </BrowserRouter>
+  );
 }
 
-export default App
-
+export default App;

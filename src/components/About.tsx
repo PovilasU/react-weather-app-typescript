@@ -3,7 +3,7 @@ import React from 'react';
 const About: React.FC = () => {
   return (
     <div className="module">
-      <img className="img-me center" src="/povilas.jpg" alt="image" />
+   
       <h2 className="center about-h2">Description</h2>
       <p className="tac1">
         A web app that fetches geolocation data from one API and uses that to

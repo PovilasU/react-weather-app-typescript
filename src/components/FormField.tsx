@@ -1,22 +1,21 @@
-
-import React from 'react';
-
+import React, { FC } from "react";
 
 interface FormFieldProps {
     title: string;
     name: string;
+    placeholder: string;
 }
 
-const FormField: React.FC<FormFieldProps> = ({ title, name }) => {
-    return (
-        <div>
-            {/* Your component code here */}
-            <label>{title}</label>
-            <input type="text" name={name} autoComplete="off" />
-        </div>
-    );
-};
+const FormField: FC<FormFieldProps> = ({ title, name, placeholder }) => (
+    <div className="form-field">
+        <label>{title}</label>
+        <input
+            type="text"
+            name={name}
+            autoComplete="off"
+            placeholder={placeholder}
+        />
+    </div>
+);
 
-export default FormField;
-
-
+export default React.memo(FormField);
