@@ -1,14 +1,5 @@
 
-const reformatDate = (dateStr: string): string => {
-  let dArr = dateStr.split("-");  // ex input: "2010-01-18"
-  return dArr[2] + "/" + dArr[1] + "/" + dArr[0].substring(2); //ex output: "18/01/10"
-}
-
-const filterTime = (time: string[], currentTime: Date): string[] => {
-  return time
-    .filter((_, idx) => idx % 5 !== 0 && new Date(time[idx]) > currentTime)
-    .slice(0, 5);
-};
+import { reformatDate, filterTime } from "./utils";
 
 
 interface ForecastProps {

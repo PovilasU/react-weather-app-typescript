@@ -37,3 +37,14 @@ export function formatDate(date: string): string {
   time += prefix0(formattedDate.getMinutes()) + " ";
   return time;
 }
+
+export const reformatDate = (dateStr: string): string => {
+  let dArr = dateStr.split("-"); // ex input: "2010-01-18"
+  return dArr[2] + "/" + dArr[1] + "/" + dArr[0].substring(2); //ex output: "18/01/10"
+};
+
+export const filterTime = (time: string[], currentTime: Date): string[] => {
+  return time
+    .filter((_, idx) => idx % 5 !== 0 && new Date(time[idx]) > currentTime)
+    .slice(0, 5);
+};
