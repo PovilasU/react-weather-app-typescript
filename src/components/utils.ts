@@ -48,3 +48,7 @@ export const filterTime = (time: string[], currentTime: Date): string[] => {
     .filter((_, idx) => idx % 5 !== 0 && new Date(time[idx]) > currentTime)
     .slice(0, 5);
 };
+
+//create test cases for the functions
+// Path: src/components/utils.test.ts
+//import { weather_interpretation, reformatDate, filterTime } from "./utils";
